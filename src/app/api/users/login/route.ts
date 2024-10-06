@@ -39,14 +39,14 @@ export async function POST(request: NextRequest) {
       email: user.email,
     };
 
-    jwt.sign(tokenData, process.env.TOKEN_SECRET!, { expiresIn: "1d" });
+    const token = jwt.sign(tokenData, process.env.TOKEN_SECRET!, { expiresIn: "1d" });
 
     const response = await NextResponse.json({
       message: "Logged In Success",
       success: true,
     });
 
-    response.cookies.set("token", tokenData,{
+    response.cookies.set("token", token,{
       httpOnly: true
     })
 
